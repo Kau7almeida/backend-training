@@ -3,6 +3,9 @@ import bcrypt from 'bcrypt'
 
 import authRepositoryUsers from "../../repository/users/authRepositoryUsers.js"
 
+// services
+import notFields from '../../services/authServicesUsers.js'
+
 const authControllerUsers = {
 
     async getAllUsers(request, reply) {
@@ -26,8 +29,9 @@ const authControllerUsers = {
             const id = randomUUID()
             const { first_name, last_name, email, password, cpf, username } = request.body
 
-            if (first_name === '' || last_name === '' || email === '' || password === '' || cpf === '' || username === '') {
-                return { message: "Não deixe nenhum campo obrigatório vazio" };
+            let fieldsValidation = notFields(first_name, last_name, email, password, cpf, username)
+            if (fieldsValidation) {
+                return fieldsValidation;
             }
 
             const senhaCriptografada = await bcrypt.hash(password, 10)
@@ -45,8 +49,9 @@ const authControllerUsers = {
             const { id } = request.params
             const { first_name, last_name, email, password, cpf, username } = request.body
 
-            if (first_name === '' || last_name === '' || email === '' || password === '' || cpf === '' || username === '') {
-                return { message: "Não deixe nenhum campo obrigatório vazio" };
+            let fieldsValidation = notFields(first_name, last_name, email, password, cpf, username)
+            if (fieldsValidation) {
+                return fieldsValidation;
             }
 
             let newPassword = password
