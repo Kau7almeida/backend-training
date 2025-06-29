@@ -9,13 +9,12 @@ const authControllerProducts = {
     },
 
     async createProduct(request, reply) {
+        const id = randomUUID()
         const { name, description, price } = request.body
 
         if (name == '' || description == '' || price == '') {
             return { "message": "Não deixe nenhum campo vazio" }
         }
-
-        const id = randomUUID()
 
         await authRepositoryProducts.createProduct(id, name, description, price)
 

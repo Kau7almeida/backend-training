@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 
+import authRouteUsers from './src/routes/users/authRouteUsers.js'
 import authRouteProducts from './src/routes/products/authRouteProducts.js'
 
 const fastify = Fastify({
@@ -12,7 +13,7 @@ await fastify.register(cors, {
   methods: '*'
 })
 
-await fastify.register(authRouteProducts)
+await fastify.register(authRouteUsers, authRouteProducts)
 
 try {
   await fastify.listen({ port: 3000 })

@@ -1,6 +1,6 @@
 import authControllerProducts from "../../controllers/products/authControllerProducts.js"
 
-export default async function authRouteProducts(fastify, options) {
+export default async function authRouteProducts(fastify) {
 
     fastify.get('/getAllProducts', async (request, reply) => {
         return authControllerProducts.getAllProducts()
